@@ -8,7 +8,7 @@ Open Source jQuery plugin for binding functions to URL hash-tags with support fo
 ## Examples
 
 ### Bind
-This example triggers an alert whenever `#hello-world` is at the end of the browser URL.  
+This example triggers an alert whenever the hashtag `#hello-world` is set at the end of the browser URL.  
 	
 	$.fn.Hashtag('bind', 'hello-world', function() {
 		alert('Hello World');
