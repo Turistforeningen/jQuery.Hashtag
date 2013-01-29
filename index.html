@@ -103,8 +103,8 @@
 <pre class="prettyprint linenums">
 $.fn.Hashtag({
   'user-([0-9]+)' : {
-    'start': function( tag, old ) { showUserInfo(); },
-    'stop' : function( tag, old ) { hideUserInfo(); }
+    'match'   : showUserInfo( id ),
+    'noMatch' : hideUserInfo( )
   }
 });
 </pre>
