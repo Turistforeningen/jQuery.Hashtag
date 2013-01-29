@@ -27,10 +27,15 @@
   });
 
   jQuery(function($) {
-    var hash, history, methods, routs, stop;
+    var hash, history, last, methods, routs, stop;
     routs = {};
     history = [];
     stop = null;
+    last = {
+      tag: '',
+      regexp: null,
+      rules: {}
+    };
     Array.prototype.peek = function() {
       return this[this.length - 1];
     };
@@ -50,30 +55,43 @@
         return this;
       },
       trigger: function(tag) {
-        var last;
+        var isMatch;
         if (tag == null) {
           tag = hash();
         }
-        last = history.peek();
-        history.push(tag);
-        if (typeof stop === 'function') {
-          stop(tag, last);
-        }
-        stop = null;
-        $.each(routs, function(pattern, rule) {
-          var regexp;
+        isMatch = false;
+        $.each(routs, function(pattern, rules) {
+          var match, regexp;
           regexp = new RegExp(pattern, 'i');
-          if (regexp.test(tag)) {
-            if (typeof rule.stop === 'function') {
-              stop = rule.stop;
-            } else {
-              stop = null;
+          match = regexp.exec(tag);
+          if (match != null) {
+            isMatch = true;
+            if (typeof match[1] !== 'undefined') {
+              tag = match[1];
             }
-            if (typeof rule.start === 'function') {
-              rule.start(tag, last);
+            if (typeof last.rules.stop === 'function' && last.regexp !== null && last.regexp.test(tag)) {
+              last.rules.stop(tag, last.tag);
             }
+            if (typeof rules.start === 'function') {
+              rules.start(tag, last.tag);
+            }
+            last = {
+              tag: tag,
+              regexp: regexp,
+              rules: rules
+            };
           }
         });
+        if (!isMatch) {
+          if (typeof last.rules.stop === 'function') {
+            last.rules.stop(tag, last.tag);
+          }
+          last = {
+            tag: tag,
+            regexp: null,
+            rules: {}
+          };
+        }
         return this;
       },
       goBack: function() {

@@ -8,45 +8,9 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 20px;
-        padding-bottom: 40px;
-      }
-
-      /* Custom container */
-      .container-narrow {
-        margin: 0 auto;
-        max-width: 700px;
-      }
-      .container-narrow > hr {
-        margin: 30px 0;
-      }
-
-      /* Main marketing message and sign up button */
-      .jumbotron {
-        margin: 60px 0;
-        text-align: center;
-      }
-      .jumbotron h1 {
-        font-size: 72px;
-        line-height: 1;
-      }
-      .jumbotron .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-      }
-      
-      .media .media-body h4 a {
-        color: #000;
-      }
-      .media .media-body h4 a:hover {
-        text-decoration: none;
-      }
-      
-    </style>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/prettify.css" rel="stylesheet">
+    <link href="assets/css/demo.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -81,11 +45,11 @@
         <a class="btn btn-warning" href="#/">Clear</a>
         <a class="btn btn-danger" href="#alert">#alert</a>
       </div>
-      
+
       <!-- media-object -->
       <div class="media" data-user="3">
         <a class="pull-left" href="#user-3">
-          <img class="media-object" src="img/avatar3.png">
+          <img class="media-object" src="assets/img/avatar3.png">
         </a>
         <div class="media-body">
           <h4 class="media-heading"><a href="#user-3">Marian Smith</a></h4>
@@ -96,7 +60,7 @@
       <!-- media-object -->
       <div class="media" data-user="1">
         <a class="pull-left" href="#user-1">
-          <img class="media-object" src="img/avatar1.png">
+          <img class="media-object" src="assets/img/avatar1.png">
         </a>
         <div class="media-body">
           <h4 class="media-heading"><a href="#user-1">Samantha Jones</a></h4>
@@ -105,7 +69,7 @@
           <!-- media-object -->
           <div class="media" data-user="2">
             <a class="pull-left" href="#user-2">
-              <img class="media-object" src="img/avatar2.png">
+              <img class="media-object" src="assets/img/avatar2.png">
             </a>
             <div class="media-body">
               <h4 class="media-heading"><a href="#user-2">Lisa Steller</a></h4>
@@ -119,7 +83,7 @@
       <!-- media-object -->
       <div class="media" data-user="4">
         <a class="pull-left" href="#user-4">
-          <img class="media-object" src="img/avatar4.png">
+          <img class="media-object" src="assets/img/avatar4.png">
         </a>
         <div class="media-body">
           <h4 class="media-heading"><a href="#user-4">John Smith</a></h4>
@@ -163,64 +127,24 @@ $.fn.Hashtag({
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="assets/js/prettify.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/demo.js"></script>
     <script src="dist/jQuery.Hashtag.js"></script>
     
       <script type="text/javascript">
         $(document).ready(function() {
-          var modal = function( id, active ) {
-            var id = parseInt(id),
-                m = $('#myModal'),
-                u = $('[data-user="' + id + '"]'),
-                prev = id-1,
-                next = id+1;
-            
-            // Hide if not active or out of bounds
-            if (active === false || id < 1 || id > 4) {
-              $('#myModal').modal('hide');
-              return;
-            }
-            
-            // User info
-            m.find('> .modal-header > h3').html('User: ' + u.find('> .media-body > .media-heading > a').html());
-            m.find('> .modal-body > p').html(u.find('> .media-body > p').html());
-            m.find('> .modal-body > img').attr('src', u.find('> a > img').attr('src'));
-            
-            // Prev user button
-            if (id === 1) {
-              m.find('> .modal-footer > a.pull-left').hide();
-            } else {
-              m.find('> .modal-footer > a.pull-left').attr('href', '#user-' + prev).show();
-            }
-            
-            // Next user button
-            if (id === 4) {
-              m.find('> .modal-footer > a.pull-right').hide();
-            } else {
-              m.find('> .modal-footer > a.pull-right').attr('href', '#user-' + next).show();
-            }
-            
-            $('#myModal').modal('show');
-          }
-          
-          /* bind hashtags */
           $.fn.Hashtag({
             'alert' : {
               'start': function( tag, old) { alert('Alert triggered by #' + tag); }
             },
             'user-([0-9]+)': {
-              'start': function( tag, old ) { modal( tag.substr("user-".length), true ); }, 
-              'stop' : function( tag, old ) { if (tag.substr(0, "user-".length) !== 'user-') modal(null, false); }
+              'start': function( tag, old ) { showUserInfo( tag ); }, 
+              'stop' : function( tag, old ) { hideUserInfo(); }
             }
           });
           $.fn.Hashtag('trigger');
-          $('[data-user="3"] > a > img').tooltip({title: 'a.#user-3', placement: 'left', trigger: 'none'}).tooltip('show');
-          $('[data-user="3"] > .media-body > .media-heading > a').tooltip({title: 'a.#user-3', placement: 'top', trigger: 'none'}).tooltip('show');
-          
-          // make code pretty
-          window.prettyPrint && prettyPrint();
         });
     </script>
   </body>

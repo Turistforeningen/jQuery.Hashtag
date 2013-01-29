@@ -28,6 +28,10 @@ jQuery ($) ->
   routs = {}
   history = []
   stop = null
+  last = 
+    tag     : ''
+    regexp  : null
+    rules   : {}
   
   Array::peek = -> this[this.length-1]  
   
@@ -58,23 +62,31 @@ jQuery ($) ->
     #
     trigger : ( tag ) ->
       tag ?= hash()
-      
-      last = history.peek()
-      history.push tag
-      
-      stop tag, last if typeof stop is 'function'
-      stop = null
-      
-      $.each routs, ( pattern, rule ) ->
+      isMatch = no
+            
+      $.each routs, ( pattern, rules ) ->
         regexp = new RegExp pattern, 'i'
-        if regexp.test(tag)
-          if typeof rule.stop is 'function'
-            stop = rule.stop
-          else
-            stop = null
-          rule.start tag, last if typeof rule.start is 'function'
-          return # multi-matches?
+        match = regexp.exec tag
+        if match?
+          isMatch = yes
+          tag = match[1] if typeof match[1] isnt 'undefined'
+          if typeof last.rules.stop is 'function' and last.regexp isnt null and last.regexp.test tag
+            last.rules.stop tag, last.tag 
+          rules.start tag, last.tag if typeof rules.start is 'function'
+          last = 
+            tag    : tag
+            regexp : regexp
+            rules  : rules
           
+          return # multi-matches?
+      
+      if not isMatch
+        last.rules.stop tag, last.tag if typeof last.rules.stop is 'function'
+        last = 
+          tag     : tag
+          regexp  : null
+          rules   : {}
+       
       this
     
     #
