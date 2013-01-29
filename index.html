@@ -1,15 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>jQuery.Hashtag</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 20px;
@@ -38,18 +38,15 @@
         font-size: 21px;
         padding: 14px 24px;
       }
-            
-      /* Debug console */
-      .console {
-        height: 400px;
-        background-color: black;
-        color: white;
-        overflow-x: scroll;
-        padding: 5px;
+      
+      .media .media-body h4 a {
+        color: #000;
+      }
+      .media .media-body h4 a:hover {
+        text-decoration: none;
       }
       
     </style>
-    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -82,54 +79,148 @@
         <h1>URL Hastag Utility!</h1>
         <p class="lead">Open Source jQuery plugin for binding functions to URL hash-tags with support for regular expressions.</p>
         <a class="btn btn-warning" href="#/">Clear</a>
-        <a class="btn btn-danger" href="#alert">Alert</a>
-        <a class="btn btn-success" href="#signup">Sign up today</a>
+        <a class="btn btn-danger" href="#alert">#alert</a>
       </div>
       
-       <div class="alert alert-danger">Alert Alert</div>
+      <!-- media-object -->
+      <div class="media" data-user="3">
+        <a class="pull-left" href="#user-3">
+          <img class="media-object" src="img/avatar3.png">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><a href="#user-3">Marian Smith</a></h4>
+          <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+        </div>
+      </div>
+      
+      <!-- media-object -->
+      <div class="media" data-user="1">
+        <a class="pull-left" href="#user-1">
+          <img class="media-object" src="img/avatar1.png">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><a href="#user-1">Samantha Jones</a></h4>
+          <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+          
+          <!-- media-object -->
+          <div class="media" data-user="2">
+            <a class="pull-left" href="#user-2">
+              <img class="media-object" src="img/avatar2.png">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading"><a href="#user-2">Lisa Steller</a></h4>
+              <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
 
-      <hr>
+      <!-- media-object -->
+      <div class="media" data-user="4">
+        <a class="pull-left" href="#user-4">
+          <img class="media-object" src="img/avatar4.png">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><a href="#user-4">John Smith</a></h4>
+          <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+        </div>
+      </div>
       
-      <div class="console"></div>
+<pre class="prettyprint linenums">
+$.fn.Hashtag({
+  'user-([0-9]+)' : {
+    'start': function( tag, old ) { showUserInfo(); },
+    'stop' : function( tag, old ) { hideUserInfo(); }
+  }
+});
+</pre>
+
       
-      <hr>
+      <hr>      
 
       <div class="footer">
         <p>&copy; Turistforeningen 2013</p>
       </div>
 
     </div> <!-- /container -->
-
+    
+    <div class="modal hide fade" id="myModal">
+      <div class="modal-header">
+        <a class="close" href="#/">&times;</a>
+        <h3>Modal header</h3>
+      </div>
+      <div class="modal-body">
+        <img src="" class="pull-left" style="margin-right: 5px;">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#/" class="pull-left btn"><i class="icon-arrow-left"></i> Prev</a>
+        <a href="#/" class="pull-right btn">Next <i class="icon-arrow-right"></i></a>
+      </div>
+    </div>
+    
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
     <script src="dist/jQuery.Hashtag.js"></script>
     
       <script type="text/javascript">
         $(document).ready(function() {
-          now = function() {
-            var time, h, m, s;
+          var modal = function( id, active ) {
+            var id = parseInt(id),
+                m = $('#myModal'),
+                u = $('[data-user="' + id + '"]'),
+                prev = id-1,
+                next = id+1;
             
-            time = new Date();
+            // Hide if not active or out of bounds
+            if (active === false || id < 1 || id > 4) {
+              $('#myModal').modal('hide');
+              return;
+            }
             
-            h = time.getHours();
-            m = time.getMinutes();
-            s = time.getSeconds();
+            // User info
+            m.find('> .modal-header > h3').html('User: ' + u.find('> .media-body > .media-heading > a').html());
+            m.find('> .modal-body > p').html(u.find('> .media-body > p').html());
+            m.find('> .modal-body > img').attr('src', u.find('> a > img').attr('src'));
             
-            if (h < 10) { h = '0' + h; }
-            if (m < 10) { m = '0' + m; }
-            if (s < 10) { s = '0' + s; }
+            // Prev user button
+            if (id === 1) {
+              m.find('> .modal-footer > a.pull-left').hide();
+            } else {
+              m.find('> .modal-footer > a.pull-left').attr('href', '#user-' + prev).show();
+            }
             
-            return h + ":" + m + ":" + s;
-          } 
+            // Next user button
+            if (id === 4) {
+              m.find('> .modal-footer > a.pull-right').hide();
+            } else {
+              m.find('> .modal-footer > a.pull-right').attr('href', '#user-' + next).show();
+            }
+            
+            $('#myModal').modal('show');
+          }
+          
+          /* bind hashtags */
           $.fn.Hashtag({
-            'alert|signup': {
-              'start': function( tag, old ) { $('.console').prepend('<p>' + now() + ' "' + tag + '" was triggered.</p>'); }, 
-              'stop' : function( tag, old ) { $('.console').prepend('<p>' + now() + ' "' + old + '" was removed.</p>'); }
+            'alert' : {
+              'start': function( tag, old) { alert('Alert triggered by #' + tag); }
+            },
+            'user-([0-9]+)': {
+              'start': function( tag, old ) { modal( tag.substr("user-".length), true ); }, 
+              'stop' : function( tag, old ) { if (tag.substr(0, "user-".length) !== 'user-') modal(null, false); }
             }
           });
+          $.fn.Hashtag('trigger');
+          $('[data-user="3"] > a > img').tooltip({title: 'a.#user-3', placement: 'left', trigger: 'none'}).tooltip('show');
+          $('[data-user="3"] > .media-body > .media-heading > a').tooltip({title: 'a.#user-3', placement: 'top', trigger: 'none'}).tooltip('show');
+          
+          // make code pretty
+          window.prettyPrint && prettyPrint();
         });
     </script>
   </body>
