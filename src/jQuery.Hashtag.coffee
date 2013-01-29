@@ -19,7 +19,8 @@
 # Trigger bounded function on hashchange
 $(window).on 'hashchange', (e) ->
   $(this).Hashtag 'trigger'
-  e.preventDefault() # prevent scrolling to top
+  # @TODO prevent scrolling to top
+  e.preventDefault()
   e.stopPropagation()
   false;
 
@@ -70,18 +71,19 @@ jQuery ($) ->
         if match?
           isMatch = yes
           tag = match[1] if typeof match[1] isnt 'undefined'
-          if typeof last.rules.stop is 'function' and last.regexp isnt null and last.regexp.test tag
-            last.rules.stop tag, last.tag 
-          rules.start tag, last.tag if typeof rules.start is 'function'
+          # @TODO onFirstMatch
+          if typeof last.rules.noMatch is 'function' and last.regexp isnt null and last.regexp.test tag
+            last.rules.noMatch tag, last.tag
+          rules.match tag, last.tag if typeof rules.match is 'function'
           last = 
             tag    : tag
             regexp : regexp
             rules  : rules
           
-          return # multi-matches?
+          return # @TODO multi-matches
       
       if not isMatch
-        last.rules.stop tag, last.tag if typeof last.rules.stop is 'function'
+        last.rules.noMatch tag, last.tag if typeof last.rules.noMatch is 'function'
         last = 
           tag     : tag
           regexp  : null
@@ -120,7 +122,7 @@ jQuery ($) ->
     # is matched with the current Hashtag in the browser URL.
     #
     # @param tag - {@code Stirng} this can be a regular expression
-    # @param opts - {@code Object} start and stop functions
+    # @param opts - {@code Object} match and noMatch callback methods 
     #
     # @return {@code this}
     #

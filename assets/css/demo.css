@@ -31,4 +31,37 @@ body {
 }
 .media .media-body h4 a:hover {
   text-decoration: none;
-}    
+}
+
+.arrow {
+  background-repeat: no-repeat;
+  height: 84px;
+  width: 150px;
+  position: absolute;
+}
+
+.arrow.arrow-demo2 {
+  z-index: 2000;
+  background-image: url('../img/arrow2.png');
+  margin-left: -200px;
+  margin-top: -70px;
+}
+
+.arrow.arrow-demo {
+  background-image: url('../img/arrow.png');
+  margin-left: -40px;
+  margin-top: -70px;
+}
+
+.arrow p {
+  margin-left: 50px;
+  width: 100%;
+  font: 400 23px/0.8 'Cookie', Helvetica, sans-serif;
+}
+
+.arrow.arrow-demo2 p {
+  z-index: 2000;
+  color: #fff;
+  margin-top: 67px;
+  font-size: 26px;
+} 

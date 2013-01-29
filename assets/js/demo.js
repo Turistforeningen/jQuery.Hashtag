@@ -42,12 +42,12 @@ $(document).ready(function() {
   // Link tooltips
   $( "[data-user]" ).each(function( index ) {
     var id = $(this).data('user');
-    if (index == 0) {
-      $(this).find('> a').tooltip({title: 'a.#user-' + id, placement: 'left', trigger: 'manual'}).tooltip('show');
-      $(this).find('> .media-body > .media-heading > a').tooltip({title: 'a.#user-' + id, placement: 'top', trigger: 'manual'}).tooltip('show');
+    if (index == -1) {
+      $(this).find('> .media-body > .media-heading > a').tooltip({title: 'click this…', placement: 'top', trigger: 'manual'}).tooltip('show');
+      $(this).find('> a').tooltip({title: '…or this', placement: 'left', trigger: 'manual'}).tooltip('show');
     } else {
-      $(this).find('> a').tooltip({title: 'a.#user-' + id, placement: 'left'});
       $(this).find('> .media-body > .media-heading > a').tooltip({title: 'a.#user-' + id, placement: 'top'});
+      $(this).find('> a').tooltip({title: 'a.#user-' + id, placement: 'left'});
     }
   });
   $('a.btn-danger').tooltip({title: 'a.#alert', placement: 'right', trigger: 'none'}).tooltip('show');

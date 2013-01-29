@@ -69,11 +69,11 @@
             if (typeof match[1] !== 'undefined') {
               tag = match[1];
             }
-            if (typeof last.rules.stop === 'function' && last.regexp !== null && last.regexp.test(tag)) {
-              last.rules.stop(tag, last.tag);
+            if (typeof last.rules.noMatch === 'function' && last.regexp !== null && last.regexp.test(tag)) {
+              last.rules.noMatch(tag, last.tag);
             }
-            if (typeof rules.start === 'function') {
-              rules.start(tag, last.tag);
+            if (typeof rules.match === 'function') {
+              rules.match(tag, last.tag);
             }
             last = {
               tag: tag,
@@ -83,8 +83,8 @@
           }
         });
         if (!isMatch) {
-          if (typeof last.rules.stop === 'function') {
-            last.rules.stop(tag, last.tag);
+          if (typeof last.rules.noMatch === 'function') {
+            last.rules.noMatch(tag, last.tag);
           }
           last = {
             tag: tag,
