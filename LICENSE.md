@@ -1,5 +1,4 @@
-Copyright 2012 jQuery Foundation and other contributors
-http://jquery.com/
+Copyright 2013 Turistforeningen http://www.turistforeningen.no/
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
