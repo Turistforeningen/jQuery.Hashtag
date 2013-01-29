@@ -29,7 +29,7 @@ $(document).ready(function() {
     }
     
     $('#myModal').modal('show');
-    $('.arrow.arrow-demo2').show();
+    $('.arrow.arrow-demo2').fadeIn('slow');
     
     return false;
   }
