@@ -29,13 +29,15 @@ $(document).ready(function() {
     }
     
     $('#myModal').modal('show');
-       
+    $('.arrow.arrow-demo2').show();
+    
     return false;
   }
   
   // Hide user info function
   hideUserInfo = function() {
     $('#myModal').modal('hide');
+    $('.arrow.arrow-demo2').hide();
     return false;
   }  
   
