@@ -39,20 +39,20 @@
       </div>
 
       <div class="arrow arrow-demo2">
-        <p>Check out this!</p>
+        <p>…and see that!</p>
       </div>
 
       <hr>
 
       <div class="jumbotron">
         <h1>URL Hastag Utility!</h1>
-        <p class="lead">Open Source jQuery plugin for binding functions to URL hash-tags with support for regular expressions.</p>
+        <p class="lead">Open Source jQuery plugin for binding functions to URL hash-tags with support for regular expressions and mas bidings. <strong>Less than 2kB!</strong></p>
         <a class="btn btn-warning" href="#/">Clear</a>
         <a class="btn btn-danger" href="#alert">#alert</a>
       </div>
       
       <div class="arrow arrow-demo">
-        <p>Check out this demo…</p>
+        <p>Click this…</p>
       </div>
       
       <!-- media-object -->
@@ -147,7 +147,7 @@ $.fn.Hashtag({
         $(document).ready(function() {
           $.fn.Hashtag({
             'alert' : {
-              'match': function( tag, old) { alert('Alert triggered by #' + tag); }
+              'match': function( tag, old) { alert('Alert triggered by the "#' + tag + '" in the URL'); }
             },
             'user-([0-9]+)': {
               'match': function( tag, old ) { showUserInfo( tag ); }, 
