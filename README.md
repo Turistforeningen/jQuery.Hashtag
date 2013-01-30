@@ -5,7 +5,7 @@ Light weight Open Source jQuery plugin for binding functions to  in and out of U
 
 ## Changelog
 
-Changelog for latest changes to the plugin can be found here: https://github.com/Turistforeningen/jQuery.Hashtag/blob/master/README.md
+Detailed log over latest changes to the Hashtag plugin can be found [here](https://github.com/Turistforeningen/jQuery.Hashtag/blob/master/CHANGES.md).
 
 ## Examples
 You can test out the working demo here: http://turistforeningen.github.com/jQuery.Hashtag/
@@ -24,12 +24,13 @@ The bind methods allows regular expressions as well as normal strings. The follo
 		'match' : function(id) { alert('Your id is ' + id); }
 	});
 
-### match and noMatch
-Both `match` and `stop` functions can be defined for hashtag rules. `match` is triggered when the hashtag first appears and `noMatch` is triggered when the hashtag is removed. For regular expression matching the `noMatch` function will only be triggered when the hashtag does no longer match the pattern.
+### firstMatch, match and noMatch
+There are three callback functions that can be assigned for any given rule; `firstMatch`, `match` and `noMatch`. `fistMatch` is only triggered on first occurrence, `match` is triggered whenever the hashtag changes and matches the pattern, while `noMatch` is triggered when the hashtag is removed. For regular expression matching the `noMatch` function will only be triggered when the hashtag does no longer match the pattern.
 
 	$.fn.Hashtag('bind', 'user-([0-9]+)', {
-		'match' : function(id) { showUserInfo( id ); },
-		'noMatch' : function() { hideUserInfo(); }
+		'firstMatch' : function(id) { initUserInfo( id ); },
+		'match'      : function(id) { showUserInfo( id ); },
+		'noMatch'    : function(  ) { hideUserInfo(    ); }
 	});
 
 ### New and Old Tag
@@ -82,6 +83,18 @@ __$.fn.Hashtag('bind', pattern, rule)__ *Bind specific rule to specific hashtag 
 __$.fn.Hashtag('unbind', pattern)__ *Unbind specific hashtag pattern*
 
 __$.fn.Hashtag('set', newTag)__ *Set the URL hashtag*
+
+### pattern
+
+Can either be a `String` or a `Regular Expression`. 
+
+### api
+
+__rule.firstMatch__ *called first time the the pattern matches* 
+
+__rule.match__ *called each time the hashtag change and match the pattern*
+
+__rule.noMatch__ *called first time hashtag does not match* 
 
 ## What are Regular Expressions
 

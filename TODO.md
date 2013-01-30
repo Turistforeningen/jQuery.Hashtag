@@ -3,7 +3,6 @@
 
 #### Demo and doc
 * [ ] Write some more about features and benefits++
-* [ ] Document `firstMatch` rule
 
 ### Version 2.0.1
 * [ ] Fix bugs introduced in version 2.0.0
