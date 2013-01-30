@@ -1,7 +1,8 @@
-### Version 2.0.0
-* [ ] Write changelog
+## Version 2.0
 
 #### Demo and doc
+* [ ] Write about regular expression groups
+* [ ] Write about the known bug with single '#' 
 * [ ] Write some more about features and benefits++
 
 ### Version 2.0.1
