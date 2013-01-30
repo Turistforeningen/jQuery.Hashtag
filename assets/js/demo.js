@@ -54,6 +54,11 @@ $(document).ready(function() {
   });
   $('a.btn-danger').tooltip({title: 'a.#alert', placement: 'right', trigger: 'none'}).tooltip('show');
   
+  // Hijack modal
+  $('#myModal').on('hidden', function () {
+    $.fn.Hashtag('set', '/');
+  });
+  
   // make code pretty
   window.prettyPrint && prettyPrint();
 });
