@@ -5,7 +5,7 @@
 * [ ] Write about the known bug with single '#' 
 * [ ] Write some more about features and benefits++
 
-### Version 2.0.1
+## Version 2.0.1
 * [ ] Fix bugs introduced in version 2.0.0
 * [ ] Fix scrolling to top bug on single hashtag `#`
 
