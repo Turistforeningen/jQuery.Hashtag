@@ -1,7 +1,9 @@
 ### Version 2.0.1
 * [ ] Fix bugs introduced in version 2.0.0
-* [ ] Fix need for calling `$.fn.Hashtag('trigger');` on load
 * [ ] Fix scrolling to top bug on single hashtag `#`
+* [ ] Write changelog
+
+#### Demo specific
 * [ ] Remove hashtag when clicked outside of modal
 * [ ] Write some more about features and benefits++
 
