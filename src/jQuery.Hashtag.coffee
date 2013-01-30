@@ -50,6 +50,9 @@ jQuery ($) ->
     #
     init : ( options ) ->
       $.extend routs, options if options?
+      
+      $.fn.Hashtag 'trigger'
+      
       this
     
     #
@@ -63,18 +66,26 @@ jQuery ($) ->
     #
     trigger : ( tag ) ->
       tag ?= hash()
-      isMatch = no
-            
+      match = null
+      
       $.each routs, ( pattern, rules ) ->
         regexp = new RegExp pattern, 'i'
         match = regexp.exec tag
         if match?
-          isMatch = yes
+          # @TODO multi regexp group support
           tag = match[1] if typeof match[1] isnt 'undefined'
-          # @TODO onFirstMatch
-          if typeof last.rules.noMatch is 'function' and last.regexp isnt null and last.regexp.test tag
+
+          # trigger last.rules.noMatch
+          if typeof last.rules.noMatch is 'function'
             last.rules.noMatch tag, last.tag
-          rules.match tag, last.tag if typeof rules.match is 'function'
+          
+          # trigger rules.match
+          if typeof rules.firstMatch is 'function'
+            rules.firstMatch tag, last.tag
+          else if typeof rules.match is 'function'
+            rules.match tag, last.tag
+          
+          # new last match
           last = 
             tag    : tag
             regexp : regexp
@@ -82,7 +93,7 @@ jQuery ($) ->
           
           return # @TODO multi-matches
       
-      if not isMatch
+      if match is null
         last.rules.noMatch tag, last.tag if typeof last.rules.noMatch is 'function'
         last = 
           tag     : tag
