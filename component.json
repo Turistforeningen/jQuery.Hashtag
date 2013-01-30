@@ -1,0 +1,8 @@
+{
+  "name"    : "jQuery.Hashtag",
+  "version" : "2.0.0",
+  "main"    : ["./dist/jQuery.Hashtag.js"],
+  "dependencies": {
+    "jquery": "~1.7.0"
+  }
+}
