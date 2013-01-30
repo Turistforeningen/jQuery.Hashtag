@@ -88,13 +88,13 @@ __$.fn.Hashtag('set', newTag)__ *Set the URL hashtag*
 
 Can either be a `String` or a `Regular Expression`. 
 
-### api
+### rules
 
-__rule.firstMatch__ *called first time the the pattern matches* 
+__rules.firstMatch__ *called first time the the pattern matches* 
 
-__rule.match__ *called each time the hashtag change and match the pattern*
+__rules.match__ *called each time the hashtag change and match the pattern*
 
-__rule.noMatch__ *called first time hashtag does not match* 
+__rules.noMatch__ *called first time hashtag does not match* 
 
 ## What are Regular Expressions
 

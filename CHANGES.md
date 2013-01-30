@@ -1,6 +1,6 @@
 ## Master branch
 
-## Version 2.0.0
+## Version 2.0.0 (Feb 1st 2013)
 Major rewrite in order to bring support for firstMatch and noMatch callbacks.
 
 ### New features
@@ -18,7 +18,7 @@ Major rewrite in order to bring support for firstMatch and noMatch callbacks.
 * `$.fn.Hashtag()` expects json object on format `pattern : rules`
 * Regular expression group is returned instead of raw hashtag
 
-## Version 1.0.0
+## Version 1.0.0 (Sep 26th 2012)
 
 First official version of the jQuery.Hashtag plugin.
 
