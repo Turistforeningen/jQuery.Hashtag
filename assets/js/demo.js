@@ -1,6 +1,7 @@
 $(document).ready(function() {
   // Show user info function
-  showUserInfo = function( id ) {
+  showUserInfo = function( id, first ) {
+    if (typeof first === 'undefined') { var first = false; }
     if (typeof id === 'undefined' || id < 1 || id > 4) {
       return hideUserInfo();
     }
@@ -28,7 +29,7 @@ $(document).ready(function() {
       m.find('> .modal-footer > a.pull-right').attr('href', '#user-' + (id+1)).show();
     }
     
-    $('#myModal').modal('show');
+    if (first === true) { $('#myModal').modal('show'); }
     $('.arrow.arrow-demo2').fadeIn('slow');
     
     return false;

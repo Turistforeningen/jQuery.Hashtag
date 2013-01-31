@@ -150,9 +150,9 @@ $.fn.Hashtag({
               'match': function( tag, old) { alert('Alert triggered by the "#' + tag + '" in the URL'); }
             },
             'user-([0-9]+)': {
-              'firstMatch': function( tag, old ) { showUserInfo( tag, true ); }, 
-              'match': function( tag, old ) { showUserInfo( tag ); }, 
-              'noMatch' : function( tag, old ) { hideUserInfo(); }
+              'firstMatch': function( tag, old ) { console.log('user.firstMatch'); showUserInfo( tag, true ); }, 
+              'match': function( tag, old ) { console.log('user.match'); showUserInfo( tag ); }, 
+              'noMatch' : function( tag, old ) { console.log('user.noMatch'); hideUserInfo(); }
             }
           });
         });
