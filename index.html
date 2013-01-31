@@ -45,7 +45,7 @@
       <hr>
 
       <div class="jumbotron">
-        <h1>URL Hastag Utility!</h1>
+        <h1>URL Hashtag Utility!</h1>
         <p class="lead">Open Source jQuery plugin for binding functions to URL hash-tags with support for regular expressions. Ultra simple API. <strong>Less than 2kB!</strong></p>
         <a class="btn btn-warning" href="#/">Clear</a>
         <a class="btn btn-danger" href="#alert">#alert</a>
@@ -150,6 +150,7 @@ $.fn.Hashtag({
               'match': function( tag, old) { alert('Alert triggered by the "#' + tag + '" in the URL'); }
             },
             'user-([0-9]+)': {
+              'firstMatch': function( tag, old ) { showUserInfo( tag, true ); }, 
               'match': function( tag, old ) { showUserInfo( tag ); }, 
               'noMatch' : function( tag, old ) { hideUserInfo(); }
             }
