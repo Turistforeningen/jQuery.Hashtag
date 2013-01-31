@@ -74,16 +74,21 @@ jQuery ($) ->
         if match?
           # @TODO multi regexp group support
           tag = match[1] if typeof match[1] isnt 'undefined'
-
-          # trigger last.rules.noMatch
-          if typeof last.rules.noMatch is 'function'
-            last.rules.noMatch tag, last.tag
           
-          # trigger rules.match
-          if typeof rules.firstMatch is 'function'
-            rules.firstMatch tag, last.tag
-          else if typeof rules.match is 'function'
-            rules.match tag, last.tag
+          # match last
+          if last.regexp isnt null and not last.regexp.test tag 
+            if typeof rules.match is 'function'
+              rules.match tag, last.tag
+          
+          # no match last
+          else
+            if typeof last.rules.noMatch is 'function'
+              last.rules.noMatch tag, last.tag
+            # trigger rules.match
+            if typeof rules.firstMatch is 'function' 
+              rules.firstMatch tag, last.tag
+            else if typeof rules.match is 'function'
+              rules.match tag, last.tag
           
           # new last match
           last = 

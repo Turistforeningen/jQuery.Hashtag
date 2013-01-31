@@ -69,13 +69,19 @@
             if (typeof match[1] !== 'undefined') {
               tag = match[1];
             }
-            if (typeof last.rules.noMatch === 'function') {
-              last.rules.noMatch(tag, last.tag);
-            }
-            if (typeof rules.firstMatch === 'function') {
-              rules.firstMatch(tag, last.tag);
-            } else if (typeof rules.match === 'function') {
-              rules.match(tag, last.tag);
+            if (last.regexp !== null && !last.regexp.test(tag)) {
+              if (typeof rules.match === 'function') {
+                rules.match(tag, last.tag);
+              }
+            } else {
+              if (typeof last.rules.noMatch === 'function') {
+                last.rules.noMatch(tag, last.tag);
+              }
+              if (typeof rules.firstMatch === 'function') {
+                rules.firstMatch(tag, last.tag);
+              } else if (typeof rules.match === 'function') {
+                rules.match(tag, last.tag);
+              }
             }
             last = {
               tag: tag,
