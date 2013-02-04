@@ -5,7 +5,7 @@
  * Written by Hans Kristian Flaatten for Turistforeningen,
  * http://www.turistforeningen.no
  *
- * Version 1.0.0
+ * Version 2.0.0
  * Full source at https://github.com/Turistforeningen/jQuery.Hashtag
  * Copyright (c) 2012 Turistforeningen @  http://www.turistforeningen.com
  *
@@ -68,6 +68,16 @@ jQuery ($) ->
       tag ?= hash()
       match = null
       
+      # Check last
+      if last.regexp isnt null 
+        match = last.regexp.exec tag 
+        if match?
+          tag = match[1] if typeof match[1] isnt 'undefined'
+          if typeof last.rules.match is 'function'
+            last.rules.match tag, last.tag
+            last.tag = tag
+            return
+
       $.each routs, ( pattern, rules ) ->
         regexp = new RegExp pattern, 'i'
         match = regexp.exec tag
@@ -75,20 +85,15 @@ jQuery ($) ->
           # @TODO multi regexp group support
           tag = match[1] if typeof match[1] isnt 'undefined'
           
-          # match last
-          if last.regexp isnt null and not last.regexp.test tag 
-            if typeof rules.match is 'function'
-              rules.match tag, last.tag
-          
-          # no match last
-          else
-            if typeof last.rules.noMatch is 'function'
-              last.rules.noMatch tag, last.tag
-            # trigger rules.match
-            if typeof rules.firstMatch is 'function' 
-              rules.firstMatch tag, last.tag
-            else if typeof rules.match is 'function'
-              rules.match tag, last.tag
+          # trigger last.rules.noMatch
+          if typeof last.rules.noMatch is 'function'
+            last.rules.noMatch tag, last.tag
+          # trigger rules.firstMatch
+          if typeof rules.firstMatch is 'function' 
+            rules.firstMatch tag, last.tag
+          # trigger rules.match
+          else if typeof rules.match is 'function'
+            rules.match tag, last.tag
           
           # new last match
           last = 

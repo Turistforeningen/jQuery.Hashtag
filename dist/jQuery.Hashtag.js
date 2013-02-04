@@ -7,7 +7,7 @@
  * Written by Hans Kristian Flaatten for Turistforeningen,
  * http://www.turistforeningen.no
  *
- * Version 1.0.0
+ * Version 2.0.0
  * Full source at https://github.com/Turistforeningen/jQuery.Hashtag
  * Copyright (c) 2012 Turistforeningen @  http://www.turistforeningen.com
  *
@@ -61,6 +61,19 @@
           tag = hash();
         }
         match = null;
+        if (last.regexp !== null) {
+          match = last.regexp.exec(tag);
+          if (match != null) {
+            if (typeof match[1] !== 'undefined') {
+              tag = match[1];
+            }
+            if (typeof last.rules.match === 'function') {
+              last.rules.match(tag, last.tag);
+              last.tag = tag;
+              return;
+            }
+          }
+        }
         $.each(routs, function(pattern, rules) {
           var regexp;
           regexp = new RegExp(pattern, 'i');
@@ -69,19 +82,13 @@
             if (typeof match[1] !== 'undefined') {
               tag = match[1];
             }
-            if (last.regexp !== null && !last.regexp.test(tag)) {
-              if (typeof rules.match === 'function') {
-                rules.match(tag, last.tag);
-              }
-            } else {
-              if (typeof last.rules.noMatch === 'function') {
-                last.rules.noMatch(tag, last.tag);
-              }
-              if (typeof rules.firstMatch === 'function') {
-                rules.firstMatch(tag, last.tag);
-              } else if (typeof rules.match === 'function') {
-                rules.match(tag, last.tag);
-              }
+            if (typeof last.rules.noMatch === 'function') {
+              last.rules.noMatch(tag, last.tag);
+            }
+            if (typeof rules.firstMatch === 'function') {
+              rules.firstMatch(tag, last.tag);
+            } else if (typeof rules.match === 'function') {
+              rules.match(tag, last.tag);
             }
             last = {
               tag: tag,
