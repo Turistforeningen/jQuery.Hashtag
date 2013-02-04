@@ -70,7 +70,7 @@
             if (typeof last.rules.match === 'function') {
               last.rules.match(tag, last.tag);
               last.tag = tag;
-              return;
+              return this;
             }
           }
         }
@@ -95,6 +95,7 @@
               regexp: regexp,
               rules: rules
             };
+            return false;
           }
         });
         if (match === null) {

@@ -76,7 +76,7 @@ jQuery ($) ->
           if typeof last.rules.match is 'function'
             last.rules.match tag, last.tag
             last.tag = tag
-            return
+            return this
 
       $.each routs, ( pattern, rules ) ->
         regexp = new RegExp pattern, 'i'
@@ -101,7 +101,7 @@ jQuery ($) ->
             regexp : regexp
             rules  : rules
           
-          return # @TODO multi-matches
+          return false # @TODO multi-matches
       
       if match is null
         last.rules.noMatch tag, last.tag if typeof last.rules.noMatch is 'function'

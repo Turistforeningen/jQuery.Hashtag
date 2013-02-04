@@ -1,5 +1,9 @@
 ## Master branch
 
+### Improvements
+* Fixed serious flaw preventing last matches from being triggered properly.
+* Speeded up regular expression matching for returning matches.
+
 ## Version 2.0.0 (Feb 1st 2013)
 Major rewrite in order to bring support for firstMatch and noMatch callbacks.
 
