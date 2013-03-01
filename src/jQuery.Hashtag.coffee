@@ -72,7 +72,8 @@ jQuery ($) ->
       if last.regexp isnt null 
         match = last.regexp.exec tag 
         if match?
-          tag = match[1] if typeof match[1] isnt 'undefined'
+          tag = match[1] if match.length is 2
+          tag = match[1..match.length] if match.length > 2
           if typeof last.rules.match is 'function'
             last.rules.match tag, last.tag
             last.tag = tag
@@ -82,8 +83,8 @@ jQuery ($) ->
         regexp = new RegExp pattern, 'i'
         match = regexp.exec tag
         if match?
-          # @TODO multi regexp group support
-          tag = match[1] if typeof match[1] isnt 'undefined'
+          tag = match[1] if match.length is 2
+          tag = match[1..match.length] if match.length > 2
           
           # trigger last.rules.noMatch
           if typeof last.rules.noMatch is 'function'

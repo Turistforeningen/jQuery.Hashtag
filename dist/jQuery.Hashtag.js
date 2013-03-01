@@ -64,8 +64,11 @@
         if (last.regexp !== null) {
           match = last.regexp.exec(tag);
           if (match != null) {
-            if (typeof match[1] !== 'undefined') {
+            if (match.length === 2) {
               tag = match[1];
+            }
+            if (match.length > 2) {
+              tag = match.slice(1, +match.length + 1 || 9e9);
             }
             if (typeof last.rules.match === 'function') {
               last.rules.match(tag, last.tag);
@@ -79,8 +82,11 @@
           regexp = new RegExp(pattern, 'i');
           match = regexp.exec(tag);
           if (match != null) {
-            if (typeof match[1] !== 'undefined') {
+            if (match.length === 2) {
               tag = match[1];
+            }
+            if (match.length > 2) {
+              tag = match.slice(1, +match.length + 1 || 9e9);
             }
             if (typeof last.rules.noMatch === 'function') {
               last.rules.noMatch(tag, last.tag);
