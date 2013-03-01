@@ -69,31 +69,31 @@
       
       <!-- media-object -->
       <div class="media" data-user="3">
-        <a class="pull-left" href="#user-3">
+        <a class="pull-left" href="#/user/3/marian/">
           <img class="media-object" src="assets/img/avatar3.png">
         </a>
         <div class="media-body">
-          <h4 class="media-heading"><a href="#user-3">Marian Smith</a></h4>
+          <h4 class="media-heading"><a href="#/user/3/marian/">Marian Smith</a></h4>
           <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
         </div>
       </div>
       
       <!-- media-object -->
       <div class="media" data-user="1">
-        <a class="pull-left" href="#user-1">
+        <a class="pull-left" href="#/user/1/samantha/">
           <img class="media-object" src="assets/img/avatar1.png">
         </a>
         <div class="media-body">
-          <h4 class="media-heading"><a href="#user-1">Samantha Jones</a></h4>
+          <h4 class="media-heading"><a href="#/user/1/samantha/">Samantha Jones</a></h4>
           <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
           
           <!-- media-object -->
           <div class="media" data-user="2">
-            <a class="pull-left" href="#user-2">
+            <a class="pull-left" href="#/user/2/lisa/">
               <img class="media-object" src="assets/img/avatar2.png">
             </a>
             <div class="media-body">
-              <h4 class="media-heading"><a href="#user-2">Lisa Steller</a></h4>
+              <h4 class="media-heading"><a href="#/user/2/lisa/">Lisa Steller</a></h4>
               <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
             </div>
           </div>
@@ -103,11 +103,11 @@
 
       <!-- media-object -->
       <div class="media" data-user="4">
-        <a class="pull-left" href="#user-4">
+        <a class="pull-left" href="#/user/4/john/">
           <img class="media-object" src="assets/img/avatar4.png">
         </a>
         <div class="media-body">
-          <h4 class="media-heading"><a href="#user-4">John Smith</a></h4>
+          <h4 class="media-heading"><a href="#/user/4/john/">John Smith</a></h4>
           <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
         </div>
       </div>
@@ -161,9 +161,9 @@ $.fn.Hashtag({
             'alert' : {
               'match': function( tag, old) { alert('Alert triggered by the "#' + tag + '" in the URL'); }
             },
-            'user-([0-9]+)': {
-              'firstMatch': function( tag, old ) { console.log('user.firstMatch'); showUserInfo( tag, true ); }, 
-              'match': function( tag, old ) { console.log('user.match'); showUserInfo( tag ); }, 
+            '^/user/([0-9]+)/([a-z]+)/?$': {
+              'firstMatch': function( tag, old ) { console.log('user.firstMatch'); showUserInfo( tag[0], true ); }, 
+              'match': function( tag, old ) { console.log('user.match'); showUserInfo( tag[0] ); }, 
               'noMatch' : function( tag, old ) { console.log('user.noMatch'); hideUserInfo(); }
             }
           });

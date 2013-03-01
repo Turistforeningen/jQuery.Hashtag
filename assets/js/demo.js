@@ -19,14 +19,14 @@ $(document).ready(function() {
     if (id === 1) {
       m.find('> .modal-footer > a.pull-left').hide();
     } else {
-      m.find('> .modal-footer > a.pull-left').attr('href', '#user-' + (id-1)).show();
+      m.find('> .modal-footer > a.pull-left').attr('href', '#/user/' + (id-1) + '/prev/').show();
     }
     
     // Next user button
     if (id === 4) {
       m.find('> .modal-footer > a.pull-right').hide();
     } else {
-      m.find('> .modal-footer > a.pull-right').attr('href', '#user-' + (id+1)).show();
+      m.find('> .modal-footer > a.pull-right').attr('href', '#/user/' + (id+1) + '/next/').show();
     }
     
     if (first === true) { $('#myModal').modal('show'); }
@@ -45,12 +45,12 @@ $(document).ready(function() {
   // Link tooltips
   $( "[data-user]" ).each(function( index ) {
     var id = $(this).data('user');
-    if (index == -1) {
+    if (index === -1) {
       $(this).find('> .media-body > .media-heading > a').tooltip({title: 'click this…', placement: 'top', trigger: 'manual'}).tooltip('show');
       $(this).find('> a').tooltip({title: '…or this', placement: 'left', trigger: 'manual'}).tooltip('show');
     } else {
-      $(this).find('> .media-body > .media-heading > a').tooltip({title: 'a.#user-' + id, placement: 'top'});
-      $(this).find('> a').tooltip({title: 'a.#user-' + id, placement: 'left'});
+      $(this).find('> .media-body > .media-heading > a').tooltip({title: '#/user/' + id + '/', placement: 'top'});
+      $(this).find('> a').tooltip({title: '#/user/' + id + '/', placement: 'left'});
     }
   });
   $('a.btn-danger').tooltip({title: 'a.#alert', placement: 'right', trigger: 'none'}).tooltip('show');
